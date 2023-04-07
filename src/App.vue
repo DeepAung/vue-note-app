@@ -100,7 +100,7 @@ function deleteNote() {
       @end="drag = false"
     >
       <template #item="{ element, index }">
-        <NoteItem v-on:click.native="gonnaUpdateNote(index)" :note="element" />
+        <NoteItem v-on:click="gonnaUpdateNote(index)" :note="element" />
       </template>
     </draggable>
   </div>
