@@ -1,10 +1,8 @@
 <script setup>
 import { colorList } from '../color.js'
 
-defineProps({
-  note: Object
-})
-
+// eslint-disable-next-line no-unused-vars
+const props = defineProps(['note'])
 </script>
 
 <template>
@@ -31,10 +29,26 @@ defineProps({
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
+}
+
+.card .wrapper {
+  flex-grow: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .card .wrapper .title {
   font-size: 1.5rem;
   font-weight: bold;
+}
+
+.card .wrapper .detail {
+  white-space: pre-line;
+  overflow: hidden;
+  flex-grow: 1;
+
+  -webkit-mask-image: linear-gradient(var(--color-text) 70%, transparent 95%);
 }
 </style>

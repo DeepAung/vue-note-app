@@ -9,7 +9,8 @@ import ColorPalette from './ColorPalette.vue'
 const props = defineProps(['showModal', 'id'])
 const emit = defineEmits(['create', 'update', 'delete'])
 
-const isNew = computed(() => (props.id === -1 ? true : false))
+const isNew = computed(() => props.id === -1)
+const cannotCreate = computed(() => isNew.value && store.note?.title === '')
 
 const modal = ref(null)
 onClickOutside(modal, () => {
@@ -35,13 +36,17 @@ onClickOutside(modal, () => {
           placeholder="Detail Here"
           rows="12"
           class="detail"
+          autofocus
           :style="{ backgroundColor: colorList[store.note.colorIndex] }"
         ></textarea>
       </div>
       <div class="bottom">
         <ColorPalette />
+        <p v-if="cannotCreate">please fill in the title</p>
         <div class="wrapper">
-          <button v-if="isNew" @click="emit('create')" class="create-btn">Create</button>
+          <button v-if="isNew" :disabled="cannotCreate" @click="emit('create')" class="create-btn">
+            Create
+          </button>
           <button v-else @click="emit('update')" class="update-btn">Update</button>
           <font-awesome-icon @click="emit('delete')" class="delete-btn" icon="fa-solid fa-trash" />
         </div>
@@ -122,17 +127,20 @@ onClickOutside(modal, () => {
 }
 
 .modal .bottom {
-  box-shadow: 0px -2px 5px rgba(0,0,0,.2);
+  box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.2);
   padding: 1.5rem;
 }
 
-.modal .bottom .wrapper {
-  display: flex;
-  align-items: center;
+.modal .bottom > p {
+  color: rgb(202, 0, 0);
   text-align: center;
+  font-size: 1rem;
+  font-weight: 500;
+  font-style: italic;
+  margin-bottom: 0.5rem;
 }
 
-.modal .bottom .wrapper button {
+.modal .bottom button {
   cursor: pointer;
   margin: 0 auto;
   padding: 0.5rem;
@@ -142,14 +150,17 @@ onClickOutside(modal, () => {
   font-size: 1.3rem;
   color: var(--color-background-mute);
   background-color: var(--color-heading);
+  display: block;
 }
 
-.modal .bottom .wrapper > * {
+.modal .bottom > * {
   cursor: pointer;
 }
 
-.modal .bottom .wrapper .delete-btn {
-  height: 2rem;
-  width: 2rem;
+.modal .bottom .delete-btn {
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 </style>
