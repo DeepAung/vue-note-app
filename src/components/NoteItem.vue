@@ -40,7 +40,6 @@ const props = defineProps(['note'])
 }
 
 .card .wrapper .title {
-  font-size: 1.5rem;
   font-weight: bold;
 }
 

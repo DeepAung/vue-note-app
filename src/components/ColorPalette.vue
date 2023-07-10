@@ -25,10 +25,10 @@ import { colorList } from '../color.js'
 }
 
 .color-item {
-  width: 2rem;
-  height: 2rem;
+  width: min(2rem, 8vw);
+  height: min(2rem, 8vw);
   border: 2px var(--vt-c-text-light-2) solid;
-  margin: auto 0.75rem;
+  margin: auto 1vw;
   border-radius: 50%;
 
   cursor: pointer;

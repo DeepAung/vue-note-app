@@ -76,6 +76,9 @@ function deleteNote() {
     <draggable
       class="note-container"
       v-model="searchedNotes"
+      delay="400"
+      delayOnTouchOnly="true"
+      chosenClass="chosen-note"
       @start="drag = true"
       @end="drag = false"
       itemKey="id"
@@ -88,6 +91,11 @@ function deleteNote() {
 </template>
 
 <style scoped>
+.chosen-note {
+  /* filter: drop-shadow(0 0 10px black); */
+  filter: opacity(0.75);
+}
+
 .container {
   max-width: 1280px;
   margin: 0 auto;
@@ -102,8 +110,6 @@ function deleteNote() {
 
 .header h1 {
   font-weight: bold;
-  font-size: clamp(1rem, 4vw, 2.5rem);
-
   cursor: pointer;
 }
 

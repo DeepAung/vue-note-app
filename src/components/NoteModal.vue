@@ -34,7 +34,6 @@ onClickOutside(modal, () => {
         <textarea
           v-model="store.note.detail"
           placeholder="Detail Here"
-          rows="12"
           class="detail"
           autofocus
           :style="{ backgroundColor: colorList[store.note.colorIndex] }"
@@ -96,6 +95,7 @@ onClickOutside(modal, () => {
 .modal {
   width: 90%;
   max-width: 35rem;
+  height: 80%;
   z-index: 100;
   border-radius: 1rem;
 
@@ -107,6 +107,10 @@ onClickOutside(modal, () => {
 
 .modal .top {
   padding: 1.5rem;
+  flex-grow: 1;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .modal .top * {
@@ -119,10 +123,12 @@ onClickOutside(modal, () => {
 }
 
 .modal .top .title {
-  font-size: 3rem;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 500;
 }
 
 .modal .top .detail {
+  flex-grow: 1;
   resize: none;
 }
 
@@ -140,11 +146,14 @@ onClickOutside(modal, () => {
   margin-bottom: 0.5rem;
 }
 
-.modal .bottom button {
+.modal .bottom .wrapper > * {
   cursor: pointer;
+}
+
+.modal .bottom .wrapper button {
   margin: 0 auto;
   padding: 0.5rem;
-  width: 10rem;
+  width: min(10rem, 40vw);
   border: none;
   border-radius: 0.4rem;
   font-size: 1.3rem;
@@ -153,11 +162,8 @@ onClickOutside(modal, () => {
   display: block;
 }
 
-.modal .bottom > * {
-  cursor: pointer;
-}
 
-.modal .bottom .delete-btn {
+.modal .bottom .wrapper .delete-btn {
   height: 100%;
   position: absolute;
   right: 0;
