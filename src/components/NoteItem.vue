@@ -1,8 +1,10 @@
-<script setup>
-import { colorList } from '../color.js'
+<script setup lang="ts">
+import { colorList } from '../color.ts'
+import { Note } from '../types/note'
 
-// eslint-disable-next-line no-unused-vars
-const props = defineProps(['note'])
+defineProps<{
+  note: Note
+}>()
 </script>
 
 <template>

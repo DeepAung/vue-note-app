@@ -1,13 +1,21 @@
-<script setup>
+<script setup lang="ts">
 import { computed, ref } from 'vue'
 import { onClickOutside } from '@vueuse/core'
-import { colorList } from '../color.js'
-import { store } from '../store.js'
+import { colorList } from '../color.ts'
+import { store } from '../store.ts'
 
 import ColorPalette from './ColorPalette.vue'
 
-const props = defineProps(['showModal', 'id'])
-const emit = defineEmits(['create', 'update', 'delete'])
+const props = defineProps<{
+  showModal: boolean
+  id: number
+}>()
+
+const emit = defineEmits<{
+  (e: 'create'): void
+  (e: 'update'): void
+  (e: 'delete'): void
+}>()
 
 const isNew = computed(() => props.id === -1)
 const cannotCreate = computed(() => isNew.value && store.note?.title === '')
@@ -21,62 +29,78 @@ onClickOutside(modal, () => {
 </script>
 
 <template>
-  <div v-show="showModal" class="overlay">
-    <div ref="modal" class="modal" :style="{ backgroundColor: colorList[store.note.colorIndex] }">
-      <div class="top">
-        <input
-          v-model="store.note.title"
-          type="text"
-          placeholder="Title"
-          class="title"
-          :style="{ backgroundColor: colorList[store.note.colorIndex] }"
-        />
-        <textarea
-          v-model="store.note.detail"
-          placeholder="Detail Here"
-          class="detail"
-          autofocus
-          :style="{ backgroundColor: colorList[store.note.colorIndex] }"
-        ></textarea>
-      </div>
-      <div class="bottom">
-        <ColorPalette />
-        <p v-if="cannotCreate">please fill in the title</p>
-        <div class="wrapper">
-          <button v-if="isNew" :disabled="cannotCreate" @click="emit('create')" class="create-btn">
-            Create
-          </button>
-          <button v-else @click="emit('update')" class="update-btn">Update</button>
-          <font-awesome-icon @click="emit('delete')" class="delete-btn" icon="fa-solid fa-trash" />
+  <Transition name="show">
+    <div v-show="showModal" class="overlay">
+      <div ref="modal" class="modal" :style="{ backgroundColor: colorList[store.note.colorIndex] }">
+        <div class="top">
+          <input
+            v-model="store.note.title"
+            type="text"
+            placeholder="Title"
+            class="title"
+            :style="{ backgroundColor: colorList[store.note.colorIndex] }"
+          />
+          <textarea
+            v-model="store.note.detail"
+            placeholder="Detail Here"
+            class="detail"
+            autofocus
+            :style="{ backgroundColor: colorList[store.note.colorIndex] }"
+          ></textarea>
+        </div>
+        <div class="bottom">
+          <ColorPalette />
+          <p v-if="cannotCreate">please fill in the title</p>
+          <div class="wrapper">
+            <button
+              v-if="isNew"
+              :disabled="cannotCreate"
+              @click="emit('create')"
+              class="create-btn"
+            >
+              Create
+            </button>
+            <button v-else @click="emit('update')" class="update-btn">Update</button>
+            <font-awesome-icon
+              @click="emit('delete')"
+              class="delete-btn"
+              icon="fa-solid fa-trash"
+            />
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </Transition>
 </template>
 
 <style scoped>
-::-webkit-scrollbar {
-  height: 16px;
-  overflow: visible;
-  width: 16px;
+.show-enter-active,
+.show-leave-active {
+  transition: opacity 0.25s cubic-bezier(0, 1, 1, 1);
 }
-::-webkit-scrollbar-button {
-  height: 0;
-  width: 0;
+
+.show-enter-from,
+.show-leave-to {
+  opacity: 0;
 }
-::-webkit-scrollbar-corner {
-  background: transparent;
+
+textarea {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-color) var(--scorllbar-bg);
 }
-::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.2);
-  background-clip: padding-box;
-  border: solid transparent;
-  box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.07);
+
+textarea::-webkit-scrollbar {
+  width: 8px;
 }
-::-webkit-scrollbar-track {
-  background-clip: padding-box;
-  border: solid transparent;
-  border-width: 0 0 0 4px;
+
+textarea::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-color);
+  border-radius: 1rem;
+}
+
+textarea::-webkit-scrollbar-track {
+  background-color: var(--scorllbar-bg);
+  border-radius: 1rem;
 }
 
 .overlay {
@@ -111,6 +135,8 @@ onClickOutside(modal, () => {
 
   display: flex;
   flex-direction: column;
+
+  
 }
 
 .modal .top * {
@@ -161,7 +187,6 @@ onClickOutside(modal, () => {
   background-color: var(--color-heading);
   display: block;
 }
-
 
 .modal .bottom .wrapper .delete-btn {
   height: 100%;

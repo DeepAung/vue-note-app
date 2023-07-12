@@ -1,11 +1,26 @@
 import { reactive } from 'vue'
+import { Note } from './types/note'
 
-export const store = reactive({
+type StoreType = {
+  notes: Note[]
+  note: Note
+  searchInput: string
+
+  loadNotes(): void
+  saveNotes(): void
+  createNote(): void
+  updateNote(index: number): void
+  deleteNote(index: number): void
+  resetNote(): void
+}
+
+export const store = reactive<StoreType>({
   notes: [],
   note: {
     title: '',
     detail: '',
-    colorIndex: 0
+    colorIndex: 0,
+    date: ''
   },
   searchInput: '',
 
@@ -30,12 +45,12 @@ export const store = reactive({
     this.saveNotes()
   },
 
-  updateNote(index) {
+  updateNote(index: number) {
     this.notes[index] = this.note
     this.saveNotes()
   },
 
-  deleteNote(index) {
+  deleteNote(index: number) {
     this.notes.splice(index, 1)
     this.saveNotes()
   },
@@ -44,7 +59,8 @@ export const store = reactive({
     this.note = {
       title: '',
       detail: '',
-      colorIndex: 0
+      colorIndex: 0,
+      date: ''
     }
   }
 })

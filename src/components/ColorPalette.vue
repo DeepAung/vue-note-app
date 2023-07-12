@@ -1,13 +1,13 @@
-<script setup>
-import { store } from '../store.js'
-import { colorList } from '../color.js'
+<script setup lang="ts">
+import { store } from '../store.ts'
+import { colorList } from '../color.ts'
 </script>
 
 <template>
   <div class="color-container">
     <button
       v-for="(color, index) in colorList"
-      :key="{ index }"
+      :key="index"
       @click="store.note.colorIndex = index"
       class="color-item"
       :class="{ active: store.note.colorIndex === index }"

@@ -1,7 +1,7 @@
 import { computed } from 'vue'
-import { store } from '../store.js'
+import { store } from '../store.ts'
 
-export const useSearch = () => {
+export const useSearchedNotes = () => {
   return computed({
     get() {
       if (store.searchInput == '') return store.notes

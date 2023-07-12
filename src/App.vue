@@ -1,13 +1,13 @@
-<script setup>
+<script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import { store } from './store.js'
+import { store } from './store.ts'
 
 import draggable from 'vuedraggable'
 import NoteItem from './components/NoteItem.vue'
 import NoteModal from './components/NoteModal.vue'
 import SearchBar from './components/SearchBar.vue'
 
-import { useSearch } from './composables/useSearch.js'
+import { useSearchedNotes } from './composables/useSearch.ts'
 
 // ------------------------------------- //
 
@@ -16,13 +16,13 @@ const id = ref(-1)
 const drag = ref(false)
 
 const isNew = computed(() => id.value === -1)
-const searchedNotes = useSearch()
-
-// ------------------------------------- //
+const searchedNotes = useSearchedNotes()
 
 onMounted(() => {
   store.loadNotes()
 })
+
+// ------------------------------------- //
 
 function openNewNoteModal() {
   store.resetNote()
@@ -30,9 +30,9 @@ function openNewNoteModal() {
   showModal.value = true
 }
 
-function openNoteModal(idx) {
-  store.note = store.notes[idx]
-  id.value = idx
+function openNoteModal(index: number) {
+  store.note = store.notes[index]
+  id.value = index
   showModal.value = true
 }
 
@@ -47,12 +47,10 @@ function updateNote() {
 }
 
 function deleteNote() {
-  if (isNew.value) {
-    showModal.value = false
-    return
+  if (!isNew.value) {
+    store.deleteNote(id.value)
   }
 
-  store.deleteNote(id.value)
   showModal.value = false
 }
 </script>
@@ -72,7 +70,7 @@ function deleteNote() {
       <SearchBar />
       <button @click="openNewNoteModal">+</button>
     </div>
-  
+
     <draggable
       class="note-container"
       v-model="searchedNotes"
@@ -92,7 +90,6 @@ function deleteNote() {
 
 <style scoped>
 .chosen-note {
-  /* filter: drop-shadow(0 0 10px black); */
   filter: opacity(0.75);
 }
 
