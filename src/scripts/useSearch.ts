@@ -1,5 +1,5 @@
 import { computed } from 'vue'
-import { store } from '../store.ts'
+import { store } from './store.ts'
 
 export const useSearchedNotes = () => {
   return computed({

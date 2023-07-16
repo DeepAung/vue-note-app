@@ -1,5 +1,5 @@
 import { reactive } from 'vue'
-import { Note } from './types/note'
+import { Note } from '../types/note.ts'
 
 type StoreType = {
   notes: Note[]
@@ -25,10 +25,9 @@ export const store = reactive<StoreType>({
   searchInput: '',
 
   loadNotes() {
-    if (localStorage.notes) {
-      let data = JSON.parse(localStorage.notes)
-      this.notes = data
-    }
+    if (!localStorage.notes) return
+
+    this.notes = JSON.parse(localStorage.notes)
   },
 
   saveNotes() {
@@ -36,12 +35,7 @@ export const store = reactive<StoreType>({
   },
 
   createNote() {
-    this.notes.unshift({
-      title: this.note.title,
-      detail: this.note.detail,
-      colorIndex: this.note.colorIndex,
-      date: new Date().toLocaleDateString('en-GB')
-    })
+    this.notes.unshift({ ...this.note, date: new Date().toLocaleDateString('en-GB') })
     this.saveNotes()
   },
 

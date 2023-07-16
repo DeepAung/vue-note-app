@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { store } from '../store.ts'
-import { colorList } from '../color.ts'
+import { store } from '../scripts/store.ts'
+import { colorList } from '../scripts/color.ts'
 </script>
 
 <template>
@@ -38,3 +38,4 @@ import { colorList } from '../color.ts'
   border: 4px var(--vt-c-text-light-2) solid;
 }
 </style>
+../scripts/color.ts

@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { onClickOutside } from '@vueuse/core'
-import { colorList } from '../color.ts'
-import { store } from '../store.ts'
+
+import { colorList } from '../scripts/color.ts'
+import { store } from '../scripts/store.ts'
 
 import ColorPalette from './ColorPalette.vue'
 
@@ -203,3 +204,4 @@ textarea::-webkit-scrollbar-track {
   top: 0;
 }
 </style>
+../scripts/color.ts

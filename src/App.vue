@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import { store } from './store.ts'
-
 import draggable from 'vuedraggable'
+
+import { store } from './scripts/store.ts'
+import { useSearchedNotes } from './scripts/useSearch.ts'
+
 import NoteItem from './components/NoteItem.vue'
 import NoteModal from './components/NoteModal.vue'
 import SearchBar from './components/SearchBar.vue'
-
-import { useSearchedNotes } from './composables/useSearch.ts'
 
 // ------------------------------------- //
 
@@ -96,7 +96,7 @@ function deleteNote() {
 .container {
   max-width: 1280px;
   margin: 0 auto;
-  padding: clamp(0.5rem, 4vw, 2rem);
+  padding: clamp(1rem, 4vw, 2rem);
 }
 
 .header {
@@ -124,9 +124,16 @@ function deleteNote() {
 }
 
 .note-container {
-  padding: 2rem;
+  padding: 2rem 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
-  gap: 2rem;
+  gap: clamp(1rem, 4vw, 2rem);;
+}
+
+@media only screen and (min-width: 400px) {
+  .note-container {
+    padding: 2rem min(4vw, 2rem);
+    grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+  }
 }
 </style>
+./scripts/useSearch.ts

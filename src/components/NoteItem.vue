@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { colorList } from '../color.ts'
+import { colorList } from '../scripts/color.ts'
 import { Note } from '../types/note'
 
 defineProps<{
