@@ -79,9 +79,19 @@ onClickOutside(modal, () => {
   transition: opacity 0.25s cubic-bezier(0, 1, 1, 1);
 }
 
+.show-enter-active > *,
+.show-leave-active > * {
+  transition: transform 0.25s cubic-bezier(0, 1, 1, 1)
+}
+
 .show-enter-from,
 .show-leave-to {
   opacity: 0;
+}
+
+.show-enter-from > *,
+.show-leave-to > * {
+  transform: scale(0.3);
 }
 
 textarea {
@@ -135,8 +145,6 @@ textarea::-webkit-scrollbar-track {
 
   display: flex;
   flex-direction: column;
-
-  
 }
 
 .modal .top * {
