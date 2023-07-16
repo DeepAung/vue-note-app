@@ -1,5 +1,5 @@
 # vue-note-app
 
-Simple note app using vuejs
+A simple note website using Vue.js
 
-to run website. `npm install && npm run dev`
+to run the website. `npm install && npm run dev`
