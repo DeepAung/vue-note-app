@@ -20,7 +20,7 @@ export const store = reactive<StoreType>({
     title: '',
     detail: '',
     colorIndex: 0,
-    date: ''
+    date: '',
   },
   searchInput: '',
 
@@ -35,7 +35,10 @@ export const store = reactive<StoreType>({
   },
 
   createNote() {
-    this.notes.unshift({ ...this.note, date: new Date().toLocaleDateString('en-GB') })
+    this.notes.unshift({
+      ...this.note,
+      date: new Date().toLocaleDateString('en-GB'),
+    })
     this.saveNotes()
   },
 
@@ -54,7 +57,7 @@ export const store = reactive<StoreType>({
       title: '',
       detail: '',
       colorIndex: 0,
-      date: ''
+      date: '',
     }
-  }
+  },
 })

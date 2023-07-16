@@ -126,7 +126,7 @@ function deleteNote() {
 .note-container {
   padding: 2rem 0;
   display: grid;
-  gap: clamp(1rem, 4vw, 2rem);;
+  gap: clamp(1rem, 4vw, 2rem);
 }
 
 @media only screen and (min-width: 400px) {

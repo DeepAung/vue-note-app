@@ -11,7 +11,9 @@ export const useSearchedNotes = () => {
       return store.notes.filter((note) => {
         let title = note.title.toLowerCase()
         let detail = note.detail.toLowerCase()
-        return patterns.some((pattern) => title.includes(pattern) || detail.includes(pattern))
+        return patterns.some(
+          (pattern) => title.includes(pattern) || detail.includes(pattern)
+        )
       })
     },
     set(newValue) {
@@ -19,6 +21,6 @@ export const useSearchedNotes = () => {
 
       store.notes = newValue
       store.saveNotes()
-    }
+    },
   })
 }

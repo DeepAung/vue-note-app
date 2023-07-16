@@ -32,7 +32,11 @@ onClickOutside(modal, () => {
 <template>
   <Transition name="show">
     <div v-show="showModal" class="overlay">
-      <div ref="modal" class="modal" :style="{ backgroundColor: colorList[store.note.colorIndex] }">
+      <div
+        ref="modal"
+        class="modal"
+        :style="{ backgroundColor: colorList[store.note.colorIndex] }"
+      >
         <div class="top">
           <input
             v-model="store.note.title"
@@ -61,7 +65,9 @@ onClickOutside(modal, () => {
             >
               Create
             </button>
-            <button v-else @click="emit('update')" class="update-btn">Update</button>
+            <button v-else @click="emit('update')" class="update-btn">
+              Update
+            </button>
             <font-awesome-icon
               @click="emit('delete')"
               class="delete-btn"
@@ -82,7 +88,7 @@ onClickOutside(modal, () => {
 
 .show-enter-active > *,
 .show-leave-active > * {
-  transition: transform 0.25s cubic-bezier(0, 1, 1, 1)
+  transition: transform 0.25s cubic-bezier(0, 1, 1, 1);
 }
 
 .show-enter-from,
@@ -204,4 +210,3 @@ textarea::-webkit-scrollbar-track {
   top: 0;
 }
 </style>
-../scripts/color.ts

@@ -4,7 +4,12 @@ import { store } from '../scripts/store.ts'
 
 <template>
   <div class="group">
-    <input v-model="store.searchInput" placeholder="Search" type="search" class="input" />
+    <input
+      v-model="store.searchInput"
+      placeholder="Search"
+      type="search"
+      class="input"
+    />
     <svg class="icon" aria-hidden="true" viewBox="0 0 24 24">
       <g>
         <path
